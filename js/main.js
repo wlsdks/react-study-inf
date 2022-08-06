@@ -16,7 +16,7 @@ class App extends React.Component{
   // setState를 생성해서 사용해라
   const searchKeyword = event.target.value;
 
-  if(searchKeyword.length <= 0){
+  if(searchKeyword.length <= 0 && this.state.submitted){
     return this.handleReset();
   }
 
@@ -30,12 +30,11 @@ class App extends React.Component{
  }
 
  handleReset() {
-  // this.setState({ searchKeyword: "" });
-  this.setState(() => {
-    return { searchKeyword : "" }  
-  }, () => {
-    console.log('todo: handleReset' , this.state.searchKeyword);
+  this.setState({
+    searchKeyword: "",
+    submitted: false,
   })
+    
  }
 
  search(searchKeyword){
