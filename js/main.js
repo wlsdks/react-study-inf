@@ -47,14 +47,8 @@ class App extends React.Component{
  }
  
   render() {
-    return ( 
-      <>
-        <header>
-          <h2 className="container">검색</h2>
-    
-        </header>
-        <div class="container">
-          <form 
+    const searchForm = (
+      <form 
             onSubmit = {event => this.handleSubmit(event)}
             onReset = {() => this.handleReset()}
           >
@@ -69,26 +63,37 @@ class App extends React.Component{
               <button type="reset" className="btn-reset"></button>
             )}
           </form>
+    );
+
+    const searchResult = (
+      this.state.searchResult.length > 0 ? (
+        <ul className="result">
+          {this.state.searchResult.map(item => {
+            return (
+              <li key={item.id}>
+                <img src={item.imageUrl} alt={item.name} />
+                <p>{item.name}</p>
+              </li>
+            )
+          })}
+        </ul>
+      ) : (
+        <div className="empty-box">검색 결과가 없습니다.</div>
+      )
+    );
+
+    return ( 
+      <>
+        <header>
+          <h2 className="container">검색</h2>
+        </header>
+        <div class="container">
+          {searchForm}
           <div className="content">
-            {this.state.submitted && (
-              (this.state.searchResult.length > 0 ? (
-                <ul className="result">
-                  {this.state.searchResult.map(item => {
-                    return (
-                      <li key={item.id}>
-                        <img src={item.imageUrl} alt={item.name} />
-                        <p>{item.name}</p>
-                      </li>
-                    )
-                  })}
-                </ul>
-              ) : (
-                <div className="empty-box">검색 결과가 없습니다.</div>
-              ))
-            )}
+            {this.state.submitted && searchResult}
           </div>
         </div>
-        </> 
+      </> 
     ); 
   }
   }
