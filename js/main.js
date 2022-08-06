@@ -8,18 +8,28 @@ class App extends React.Component{
  }
 
  handleChangeInput(event){
-  // this.state.searchKeyword = event.target.value;
-  // this.forceUpdate();
-
   // setState를 생성해서 사용해라
-  this.setState({
-    searchKeyword: event.target.value
-  });
+  const searchKeyword = event.target.value;
+
+  if(searchKeyword.length <= 0){
+    return this.handleReset();
+  }
+
+  this.setState({ searchKeyword });
  }
  
  handleSubmit(event){
   event.preventDefault();
   console.log("tood: handleSubmit", this.state.searchKeyword);
+ }
+
+ handleReset() {
+  // this.setState({ searchKeyword: "" });
+  this.setState(() => {
+    return { searchKeyword : "" }  
+  }, () => {
+    console.log('todo: handleReset' , this.state.searchKeyword);
+  })
  }
  
   render() {
@@ -37,7 +47,10 @@ class App extends React.Component{
     
         </header>
         <div class="container">
-          <form onSubmit={event => this.handleSubmit(event)}>
+          <form 
+            onSubmit = {event => this.handleSubmit(event)}
+            onReset = {() => this.handleReset()}
+          >
             <input 
               type="text" 
               placeholder="검색어를 입력하세요." 
