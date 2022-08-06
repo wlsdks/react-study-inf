@@ -1,17 +1,35 @@
-const element = (
-  <>
-    <header>
-      <h2 className="container">검색</h2>
+class App extends React.Component{
+ constructor(){
+  super();
 
-    </header>
-    <div class="container">
-      <form>
-        <input type="text" placeholder="검색어를 입력하세요." autoFocus />
-        <button type="reset" className="btn-reset"></button>
-      </form>
-    </div>
-    </>
-);
+   this.state = {
+    searchKeyword: 'Hello',
+   };
+ }
+ 
+  render() {
+    return ( 
+      <>
+        <header>
+          <h2 className="container">검색</h2>
+    
+        </header>
+        <div class="container">
+          <form>
+            <input 
+              type="text" 
+              placeholder="검색어를 입력하세요." 
+              autoFocus 
+              value={this.state.searchKeyword}
+            />
+            <button type="reset" className="btn-reset"></button>
+          </form>
+        </div>
+        </> 
+    ); 
+  }
+}
 
-ReactDOM.render(element, document.querySelector("#app"));
+
+ReactDOM.render(<App />, document.querySelector("#app"));
 
