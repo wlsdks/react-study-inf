@@ -85,14 +85,12 @@ class App extends React.Component{
 
     const keywordList = (
         <ul className="list">
-            {this.state.keywordList.map((item, index) => {
-                return (
-                    <li key="{item.id}">
-                        <span className="number">{index + 1}</span>
-                        <span>{item.keyword}</span>
-                    </li>
-                )
-            })}
+            {this.state.keywordList.map(({id, keyword}, index) => (
+                <li key={id} onClick={() => this.search(keyword)}>
+                    <span className="number">{index + 1}</span>
+                    <span>{keyword}</span>
+                </li>
+            ))}
         </ul>
     )
 
