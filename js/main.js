@@ -58,6 +58,7 @@ class App extends React.Component{
  search(searchKeyword){
   const searchResult = store.search(searchKeyword);
   this.setState({ 
+    searchKeyword,
     searchResult,
     submitted: true
    });
