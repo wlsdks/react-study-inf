@@ -1,4 +1,5 @@
 import store from "./js/store.js";
+import storage from "./js/storage.js";
 
 const TabType = {
   KEYWORD: "KEYWORD",
@@ -16,10 +17,11 @@ class App extends React.Component{
 
   //state설정
    this.state = {
-    searchKeyword: '',
-    searchResult: [],
-    submitted: false,
-    selectedTab: TabType.KEYWORD,
+      searchKeyword: '',
+      searchResult: [],
+      submitted: false,
+      selectedTab: TabType.KEYWORD,
+      keywordList: [],
    };
  }
 
@@ -32,6 +34,11 @@ class App extends React.Component{
   }
 
   this.setState({ searchKeyword });
+ }
+
+ componentDidMount(){
+    const keywordList = store.getKeywordList();
+    this.setState({ keywordList });
  }
  
  handleSubmit(event){
@@ -76,6 +83,19 @@ class App extends React.Component{
       </form>
     );
 
+    const keywordList = (
+        <ul className="list">
+            {this.state.keywordList.map((item, index) => {
+                return (
+                    <li key="{item.id}">
+                        <span className="number">{index + 1}</span>
+                        <span>{item.keyword}</span>
+                    </li>
+                )
+            })}
+        </ul>
+    )
+
     const tabs = (
       <>
         <ul className="tabs">
@@ -90,7 +110,7 @@ class App extends React.Component{
           ))}
         </ul>
 
-        {this.state.selectedTab === TabType.KEYWORD && <>TODO: 추천 검색어</>}
+        {this.state.selectedTab === TabType.KEYWORD && keywordList}
         {this.state.selectedTab === TabType.HISTORY && <>TODO: 최근 검색어</>}
       </>
     )
