@@ -77,16 +77,22 @@ class App extends React.Component{
     );
 
     const tabs = (
-      <ul className="tabs">
-        {Object.values(TabType).map((tabType) => (
-          <li 
-            className={this.state.selectedTab === tabType ? "active" : ""}
-            key = {tabType}            
-          >
-            {TabLabel[tabType]}
-          </li>
-        ))}
-      </ul>
+      <>
+        <ul className="tabs">
+          {Object.values(TabType).map((tabType) => (
+            <li 
+              className={this.state.selectedTab === tabType ? "active" : ""}
+              key = {tabType}            
+              onClick = {() => this.setState({ selectedTab: tabType })}
+            >
+              {TabLabel[tabType]}
+            </li>
+          ))}
+        </ul>
+
+        {this.state.selectedTab === TabType.KEYWORD && <>TODO: 추천 검색어</>}
+        {this.state.selectedTab === TabType.HISTORY && <>TODO: 최근 검색어</>}
+      </>
     )
 
     const searchResult = (
